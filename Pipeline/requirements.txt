@@ -1,0 +1,14 @@
+requests
+beautifulsoup4
+lxml
+tqdm
+pandas
+langdetect
+reportlab
+plotly
+streamlit
+fastapi
+uvicorn
+google-genai
+praw
+pytest
