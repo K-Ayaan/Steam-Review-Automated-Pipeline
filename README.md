@@ -78,14 +78,50 @@ python -m streamlit run dashboard/app.py
 - **📤 Campaign Approval** is where you approve or reject the generated ads.
 - **🚀 Publishing Queue** has a *Live mode* toggle, off by default. With it off, *Publish* / *Distribute all approved* only preview the messages.
 
-Click counting is not active. Posts link to the Steam store URL with UTM tags, and a public URL shortener is planned as a separate project. PostgreSQL and n8n are planned to run in Docker later.
+Click counting is not active. Posts link to the Steam store URL with UTM tags, and a public URL shortener is planned as a separate project.
+
+## PostgreSQL + n8n (Docker, optional)
+
+Everything above works without Docker. With it, each run is also mirrored into PostgreSQL, and n8n can start dry-runs on a schedule.
+
+1. Add the PostgreSQL / n8n block from `.env.example` to `.env`. Use real random values for `POSTGRES_PASSWORD`, `N8N_ENCRYPTION_KEY` and `PIPELINE_API_TOKEN`, and put the same password in `DATABASE_URL`.
+2. From the repo root:
+
+   ```bash
+   docker compose up -d
+   ```
+
+   Postgres listens on `localhost:5432`, n8n on http://localhost:5678. The tables in `Pipeline/Analyze/database/schema.sql` (games, runs, issues, campaigns, campaign_links, campaign_metrics, approval_logs, publishing_logs) are created on the first start only. To recreate them, run `docker compose down -v`, which **deletes the data**.
+3. Once `DATABASE_URL` is set, `run_pipeline.py` mirrors each run, the dashboard mirrors approvals and rejections, and every publish is mirrored from the publishing log. If Postgres is down, a one-line `[DB]` warning is printed and the pipeline carries on.
+
+### Scheduled runs with n8n
+
+n8n calls a small API that starts `run_pipeline.py`. **Always dry-run**, capped at 500 reviews, one run at a time, and it needs the `X-API-Key: $PIPELINE_API_TOKEN` header.
+
+```bash
+cd Pipeline/Analyze
+python -m uvicorn services.pipeline_api:app --host 127.0.0.1 --port 8001
+```
+
+- `POST /runs` with `{"app_id": 3297310, "max_reviews": 200}` returns a `job_id`, and `GET /runs/{job_id}` returns its status and the last log lines. Logs go to `outputs/api_runs/`.
+- Import the sample workflow (daily at 06:00, inactive until you switch it on):
+
+  ```bash
+  docker compose exec -u node n8n n8n import:workflow --input=/workflows/scheduled_dry_run.json
+  ```
+
+  Change the `app_id` in its *Start dry-run* node, then activate it in the n8n UI.
+
+Live sending stays manual: approve campaigns in the dashboard and publish there, or run `run_pipeline.py --live`.
 
 ## Tests
 
 ```bash
 cd Pipeline/Analyze
-python -m pytest test/test_smoke_gemini_creative.py test/test_smoke_distribution.py test/test_smoke_insights_market.py test/test_smoke_dashboard.py
+python -m pytest test/test_smoke_gemini_creative.py test/test_smoke_distribution.py test/test_smoke_insights_market.py test/test_smoke_dashboard.py test/test_smoke_database.py test/test_smoke_pipeline_api.py
 ```
+
+The Postgres round-trip test is skipped unless `TEST_DATABASE_URL` points at a disposable database. It writes rows and then removes them.
 
 The other files in `test/` are older ad-hoc scripts, not pytest tests.
 

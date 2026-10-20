@@ -32,6 +32,10 @@ from dashboard.campaign_manager import (
     CampaignManager
 )
 
+from database.campaign_repository import (
+    CampaignRepository
+)
+
 from intelligence.publishing_queue import (
     PublishingQueue
 )
@@ -1501,6 +1505,15 @@ with tab5:
                             segment_campaigns
                         )
 
+                        CampaignRepository().log_approval(
+
+                            segment_campaigns[idx]["campaign_id"],
+
+                            "APPROVED",
+
+                            latest_run.name
+                        )
+
                         # st.write(
                         #     segment_campaigns[idx]
                         # )
@@ -1527,6 +1540,15 @@ with tab5:
                             latest_run,
 
                             segment_campaigns
+                        )
+
+                        CampaignRepository().log_approval(
+
+                            segment_campaigns[idx]["campaign_id"],
+
+                            "REJECTED",
+
+                            latest_run.name
                         )
 
                         st.rerun()

@@ -11,4 +11,5 @@ fastapi
 uvicorn
 google-genai
 praw
+psycopg[binary]
 pytest

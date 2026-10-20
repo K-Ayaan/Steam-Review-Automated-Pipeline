@@ -48,6 +48,8 @@ from dashboard.campaign_manager import CampaignManager
 
 from services.publisher import Publisher
 
+from database.campaign_repository import CampaignRepository
+
 
 CHANNELS = ["discord", "reddit", "email"]
 
@@ -339,6 +341,17 @@ def run(args):
 
             indent=4
         )
+
+    # No-op unless DATABASE_URL points at a running Postgres.
+
+    CampaignRepository().save_run(
+
+        run_dir,
+
+        args.app_id,
+
+        market
+    )
 
     if args.skip_distribute:
 

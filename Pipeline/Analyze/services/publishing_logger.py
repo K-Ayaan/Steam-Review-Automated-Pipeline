@@ -2,6 +2,8 @@ import json
 from pathlib import Path
 from datetime import datetime
 
+from database.campaign_repository import CampaignRepository
+
 
 class PublishingLogger:
 
@@ -76,3 +78,14 @@ class PublishingLogger:
 
                 indent=4
             )
+
+        CampaignRepository().log_publish(
+
+            campaign_id,
+
+            channel,
+
+            status,
+
+            message
+        )

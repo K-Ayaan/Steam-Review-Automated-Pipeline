@@ -1,0 +1,52 @@
+# Local infrastructure: PostgreSQL (mirror of pipeline output) and n8n (scheduling).
+# Values come from the repo-root .env (see .env.example).
+#
+#   docker compose up -d
+#
+# Both ports are bound to localhost only.
+
+name: steam-ad-review
+
+services:
+
+  postgres:
+    image: postgres:17.11-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-steam}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-steam_ads}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # Runs only when the volume is empty (first start).
+      - ./Pipeline/Analyze/database/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:2.44.4
+    restart: unless-stopped
+    environment:
+      N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY:?Set N8N_ENCRYPTION_KEY in .env}
+      GENERIC_TIMEZONE: ${GENERIC_TIMEZONE:-UTC}
+      TZ: ${GENERIC_TIMEZONE:-UTC}
+      # The sample workflow reads these with $env.
+      N8N_BLOCK_ENV_ACCESS_IN_NODE: "false"
+      PIPELINE_API_URL: ${PIPELINE_API_URL:-http://host.docker.internal:8001}
+      PIPELINE_API_TOKEN: ${PIPELINE_API_TOKEN:-}
+    ports:
+      - "127.0.0.1:5678:5678"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./n8n/workflows:/workflows:ro
+
+volumes:
+  postgres_data:
+  n8n_data:
