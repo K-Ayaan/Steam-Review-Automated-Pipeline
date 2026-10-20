@@ -1,0 +1,32 @@
+{
+    "BUILDING": [
+        "build",
+        "building",
+        "base",
+        "construction"
+    ],
+
+    "PROGRESSION": [
+        "progression",
+        "upgrade",
+        "unlock"
+    ],
+
+    "RESOURCE_GRIND": [
+        "grind",
+        "resource",
+        "farming"
+    ],
+
+    "EXPLORATION": [
+        "explore",
+        "exploration",
+        "discover"
+    ],
+
+    "MULTIPLAYER_FUN": [
+        "friends",
+        "co-op",
+        "team"
+    ]
+}

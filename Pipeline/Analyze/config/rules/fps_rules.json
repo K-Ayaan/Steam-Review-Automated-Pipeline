@@ -1,0 +1,54 @@
+{
+    "ANTI_CHEAT_CHEATERS": [
+        "cheat",
+        "cheater",
+        "hack",
+        "hacker",
+        "aimbot",
+        "wallhack",
+        "spinbot",
+        "作弊",
+        "外挂"
+    ],
+
+    "ANTI_CHEAT_VAC_VERIFICATION": [
+        "vac",
+        "vac error",
+        "vac verification"
+    ],
+
+    "MATCHMAKING_RANK_BALANCE": [
+        "matchmaking",
+        "ranked",
+        "premier",
+        "elo",
+        "skill group"
+    ],
+
+    "SERVER_CONNECTIVITY": [
+        "server",
+        "lag",
+        "disconnect",
+        "connection"
+    ],
+
+    "PERFORMANCE_FPS": [
+        "fps",
+        "fps drop",
+        "stutter",
+        "optimization"
+    ],
+
+    "COMMUNITY_TOXICITY": [
+        "toxic",
+        "racist",
+        "racism"
+    ],
+
+    "MULTIPLAYER_FUN": [
+        "friends",
+        "team",
+        "teammates",
+        "squad"
+    ]
+}

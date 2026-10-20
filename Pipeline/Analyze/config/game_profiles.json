@@ -1,0 +1,245 @@
+{
+    "Counter-Strike 2": {
+
+        "genre": "Competitive FPS",
+
+        "pillars": [
+
+            "Skill Expression",
+
+            "Competition",
+
+            "Ranked Progression",
+
+            "Team Play"
+        ],
+
+        "target_audiences": [
+
+            "Competitive Players",
+
+            "Ranked Players",
+
+            "Esports Audience",
+
+            "Long-Term Players",
+
+            "Friend Groups"
+        ]
+    },
+
+    "Valheim": {
+
+        "genre": "Survival Crafting",
+
+        "pillars": [
+
+            "Exploration",
+
+            "Building",
+
+            "Progression",
+
+            "Co-op"
+        ],
+
+        "target_audiences": [
+
+            "Builders",
+
+            "Survival Players",
+
+            "Co-op Players",
+
+            "Long-Term Players"
+        ]
+    },
+
+    "Escape The Backrooms": {
+
+        "genre": "Co-op Horror",
+
+        "pillars": [
+
+            "Fear",
+
+            "Horror Atmosphere",
+
+            "Exploration",
+
+            "Co-op Survival"
+        ],
+
+        "target_audiences": [
+
+            "Horror Fans",
+
+            "Horror Stream Viewers",
+
+            "Co-op Horror Players",
+
+            "Friend Groups"
+        ]
+    },
+
+    "KTRL Smash": {
+
+        "genre": "Party Brawler",
+
+        "pillars": [
+
+            "Competition",
+
+            "Multiplayer Fun",
+
+            "Skill Expression",
+
+            "Replayability"
+        ],
+
+        "target_audiences": [
+
+            "Casual Players",
+
+            "Friend Groups",
+
+            "Competitive Players",
+
+            "Party Game Fans"
+        ]
+    },
+
+    "Pacify": {
+
+        "genre": "Co-op Horror",
+
+        "pillars": [
+
+            "Fear",
+
+            "Horror Atmosphere",
+
+            "Co-op Survival",
+
+            "Exploration"
+        ],
+
+        "target_audiences": [
+
+            "Horror Fans",
+
+            "Horror Stream Viewers",
+
+            "Co-op Horror Players",
+
+            "Friend Groups"
+        ]
+    },
+
+    "The Cursed Hour": {
+
+        "genre": "Psychological Horror",
+
+        "pillars": [
+
+            "Fear",
+
+            "Psychological Tension",
+
+            "Atmosphere",
+
+            "Story Discovery"
+        ],
+
+        "target_audiences": [
+
+            "Horror Fans",
+
+            "Indie Horror Players",
+
+            "Story Driven Players",
+
+            "Horror Stream Viewers"
+        ]
+    },
+
+    "Stumble Guys": {
+
+        "genre": "Party Platformer",
+
+        "pillars": [
+
+            "Multiplayer Fun",
+
+            "Party Gameplay",
+
+            "Competition",
+
+            "Replayability"
+        ],
+
+        "target_audiences": [
+
+            "Casual Players",
+
+            "Friend Groups",
+
+            "Mobile Players",
+
+            "Younger Audience"
+        ]
+    },
+
+    "Marvel Rivals": {
+
+        "genre": "Hero Shooter",
+
+        "pillars": [
+
+            "Team Play",
+
+            "Hero Synergy",
+
+            "Competitive Play",
+
+            "Skill Expression",
+
+            "Ranked Progression",
+
+            "Character Mastery"
+
+        ],
+
+        "target_audiences": [
+
+            "Competitive Players",
+
+            "Hero Shooter Fans",
+
+            "Team-Based PvP Players",
+
+            "Ranked Players",
+
+            "Esports Audience",
+
+            "Friend Groups",
+
+            "Long-Term Players"
+
+        ],
+
+        "marketing_channels": [
+
+            "YouTube Gaming",
+
+            "Twitch",
+
+            "Discord Communities",
+
+            "Reddit Gaming Communities",
+
+            "TikTok Gaming"
+
+        ]
+    }
+}

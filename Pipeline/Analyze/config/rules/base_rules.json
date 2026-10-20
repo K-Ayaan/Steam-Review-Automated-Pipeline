@@ -1,0 +1,290 @@
+{
+
+    "ANTI_CHEAT_CHEATERS": [
+
+        "cheat",
+        "cheater",
+        "cheaters",
+        "hack",
+        "hacker",
+        "hackers",
+        "aimbot",
+        "wallhack",
+        "spinbot",
+
+        "作弊",
+        "外挂",
+        "神仙",
+
+        " чит ",
+        " читер ",
+
+        "hile"
+    ],
+
+    "ANTI_CHEAT_VAC_VERIFICATION": [
+
+        "vac",
+        "vac error",
+        "vac verification",
+        "cannot verify game session",
+        "vac无法验证"
+    ],
+
+    "MATCHMAKING_RANK_BALANCE": [
+
+        "matchmaking",
+        "ranked",
+        "premier",
+
+        "匹配",
+        "优先匹配"
+    ],
+
+    "MATCHMAKING_REGIONAL": [
+
+        "russian teammates",
+        "russians",
+
+        "俄罗斯",
+        "俄国人",
+
+        "region lock",
+        "regional matchmaking"
+    ],
+
+    "PERFORMANCE_FPS": [
+
+        "fps",
+        "fps drop",
+        "fps drops",
+        "stutter",
+        "stuttering",
+        "optimization",
+
+        "掉帧",
+        "优化"
+    ],
+
+    "CRASHES": [
+
+        "crash",
+        "crashes",
+        "freezes",
+
+        "崩溃",
+        "闪退"
+    ],
+
+    "BUGS": [
+
+        "bug",
+        "bugs",
+        "glitch",
+        "glitches",
+
+        "错误",
+        "bug"
+    ],
+
+    "COMMUNITY_TOXICITY": [
+
+        "toxic",
+        "racist",
+        "racism",
+
+        "辱骂",
+        "种族歧视",
+
+        "n word"
+    ],
+
+    "CONTENT_REQUESTS": [
+
+        "add more maps",
+        "more maps",
+        "new maps",
+        "new content",
+        "more content",
+        "add content",
+        "more weapons",
+        "new weapons",
+        "more characters",
+        "new character"
+    ],
+
+    "SERVER_CONNECTIVITY": [
+
+        "server",
+        "disconnect",
+        "lag",
+        "connection"
+    ],
+
+    "LOCALIZATION": [
+
+        "translation",
+        "translated",
+        "localization",
+        "language support",
+        "no chinese",
+        "not translated",
+
+        "перевод",
+
+        "没有中文",
+        "翻译",
+
+        "çeviri"
+    ],
+
+    "MULTIPLAYER_CONNECTIVITY": [
+
+        "cannot join",
+        "can't join",
+        "cant join",
+        "join failed",
+        "invite not working",
+        "connection failed",
+        "invalid error",
+        "lobby",
+        "multiplayer broken",
+        "co-op broken",
+        "coop broken",
+        "disconnect",
+        "server kick",
+        "unable to connect",
+
+        "подключение",
+        "лобби",
+        "не могу подключиться",
+
+        "连接失败",
+        "大厅",
+        "无法连接"
+    ],
+
+    "UI_UX_PROBLEMS": [
+
+        "settings don't work",
+        "settings do not work",
+        "cannot apply settings",
+        "apply button",
+        "ui bug",
+        "bad interface",
+        "poor ui",
+        "bad controls",
+        "controls",
+        "keybind",
+        "brightness",
+        "too dark",
+        "menu bug",
+
+        "настройки",
+        "интерфейс",
+
+        "设置",
+        "界面"
+    ],
+
+    "OPTIMIZATION": [
+
+        "laggy",
+        "fps",
+        "frame drop",
+        "stutter",
+        "optimization",
+
+        "卡",
+        "卡顿",
+        "掉帧",
+
+        "лагает"
+    ],
+
+    "GAMEPLAY_CLARITY": [
+
+        "confusing",
+        "unclear",
+        "don't know what to do",
+        "dont know what to do",
+        "no idea what to do",
+        "poor instructions",
+        "not explained",
+        "hard to understand",
+
+        "непонятно",
+        "не понимаю",
+
+        "不知道该做什么",
+        "不清楚"
+    ],
+
+    "TUTORIAL_ONBOARDING": [
+
+        "no tutorial",
+        "needs tutorial",
+        "where is tutorial",
+        "tutorial missing",
+        "bad tutorial",
+
+        "нет обучения",
+
+        "没有教程"
+    ],
+
+    "REPLAYABILITY": [
+
+        "nothing to do",
+        "gets boring",
+        "boring after",
+        "repetitive",
+        "same thing",
+        "lack of content",
+        "not replayable",
+
+        "скучно",
+
+        "重复"
+    ],
+
+    "HORROR_EFFECTIVENESS": [
+
+        "not scary",
+        "isn't scary",
+        "isnt scary",
+        "not frightening",
+        "not horror",
+
+        "не страшно",
+
+        "不吓人"
+    ],
+
+    "HORROR_EXPERIENCE": [
+
+        "scary",
+        "terrifying",
+        "creepy",
+        "atmospheric",
+        "good horror",
+
+        "страшно",
+
+        "恐怖"
+    ],
+
+    "IMMERSION": [
+
+        "immersive",
+        "atmosphere",
+        "atmospheric",
+        "immersed",
+
+        "атмосфера",
+
+        "沉浸感"
+    ]
+
+
+}

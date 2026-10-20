@@ -1,0 +1,35 @@
+{
+    "HORROR_EXPERIENCE": [
+        "scary",
+        "terrifying",
+        "creepy",
+        "horror",
+        "frightening"
+    ],
+
+    "HORROR_EFFECTIVENESS": [
+        "jump scare",
+        "fear",
+        "suspense",
+        "atmosphere"
+    ],
+
+    "IMMERSION": [
+        "immersive",
+        "atmospheric",
+        "realistic"
+    ],
+
+    "MULTIPLAYER_FUN": [
+        "friends",
+        "co-op",
+        "coop",
+        "team"
+    ],
+
+    "BUGS": [
+        "bug",
+        "glitch",
+        "broken"
+    ]
+}
