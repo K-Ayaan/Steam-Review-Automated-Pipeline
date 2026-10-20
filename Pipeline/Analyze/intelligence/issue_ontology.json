@@ -1,0 +1,79 @@
+{
+  "ANTI_CHEAT": {
+    "developer_team": "Backend",
+    "severity_weight": 10,
+    "keywords": [
+      "vac",
+      "anti cheat",
+      "cheater",
+      "cheaters",
+      "hack",
+      "hacker",
+      "hackers",
+      "作弊",
+      "外挂",
+      "читер",
+      "читы"
+    ]
+  },
+
+  "MATCHMAKING": {
+    "developer_team": "Backend",
+    "severity_weight": 8,
+    "keywords": [
+      "matchmaking",
+      "queue",
+      "rank",
+      "ranking",
+      "elo",
+      "teammate",
+      "lobby"
+    ]
+  },
+
+  "PERFORMANCE": {
+    "developer_team": "Engine",
+    "severity_weight": 9,
+    "keywords": [
+      "fps",
+      "lag",
+      "stutter",
+      "freeze",
+      "optimization",
+      "subtick"
+    ]
+  },
+
+  "SERVER": {
+    "developer_team": "Backend",
+    "severity_weight": 8,
+    "keywords": [
+      "server",
+      "ping",
+      "latency",
+      "region"
+    ]
+  },
+
+  "CONTENT": {
+    "developer_team": "Game Design",
+    "severity_weight": 5,
+    "keywords": [
+      "content",
+      "map",
+      "maps",
+      "operation",
+      "mission"
+    ]
+  },
+
+  "GAMEPLAY": {
+    "developer_team": "Game Design",
+    "severity_weight": 7,
+    "keywords": [
+      "gameplay",
+      "balance",
+      "mechanics"
+    ]
+  }
+}
