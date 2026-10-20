@@ -1,0 +1,22 @@
+# Secrets
+.env
+Pipeline/Analyze/config/api_keys.py
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Generated per run (recreated by run_pipeline.py)
+Pipeline/Analyze/outputs/
+Pipeline/Analyze/data/
+Pipeline/Scraper-main/data/
+Pipeline/Scraper-main/logs/
+
+# Local notes and editor files (not published)
+CLAUDE.md
+PROJECT_STATUS.md
+*.txt
+!requirements.txt
+.vscode/
+tempCodeRunnerFile.py
