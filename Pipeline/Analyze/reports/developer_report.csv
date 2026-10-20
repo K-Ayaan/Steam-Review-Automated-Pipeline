@@ -1,0 +1,14 @@
+issue_id,count,impact_score,helpful_count,severity,department,team,priority,category,top_language,top_player_segment,business_impact
+ANTI_CHEAT_CHEATERS,105,176872,52797,CRITICAL,Development,Anti-Cheat,P1,Technical,en,Casual Player,EXTREME
+SKIN_ECONOMY,80,147976,43605,CRITICAL,Monetization,Economy,P2,Business,zh-cn,Veteran,EXTREME
+COMPETITIVE_INTEGRITY,45,82996,24859,CRITICAL,Design,Gameplay,P1,Competitive,zh-cn,Casual Player,HIGH
+MATCHMAKING_RANK_BALANCE,34,71372,21369,CRITICAL,LiveOps,Matchmaking,P1,Competitive,zh-cn,Casual Player,HIGH
+ANTI_CHEAT_VAC_VERIFICATION,19,30514,9250,HIGH,Development,Anti-Cheat,P1,Technical,ru,Casual Player,MEDIUM
+PERFORMANCE_FPS,18,21866,6688,MEDIUM,Development,Engine,P1,Performance,en,Casual Player,LOW
+CRASHES,9,20303,5614,MEDIUM,Development,Engine,P1,Stability,zh-cn,Veteran,MEDIUM
+GAMEPLAY_BALANCE,8,15211,4740,MEDIUM,Design,Gameplay,P2,Design,zh-cn,Veteran,MEDIUM
+COMMUNITY_TOXICITY,10,14247,4103,MEDIUM,Community,Player Behavior,P2,Community,en,Casual Player,LOW
+MATCHMAKING_REGIONAL,6,13673,4024,MEDIUM,LiveOps,Matchmaking,P2,Competitive,en,Veteran,MEDIUM
+CONTENT_UPDATES,7,13075,3889,MEDIUM,Unknown,Unknown,P3,Unknown,zh-cn,Casual Player,LOW
+SERVER_LATENCY,6,10728,3188,LOW,Infrastructure,Servers,P1,Infrastructure,en,Casual Player,LOW
+BUGS,5,6848,2193,LOW,Unknown,Unknown,P3,Unknown,en,Casual Player,LOW
