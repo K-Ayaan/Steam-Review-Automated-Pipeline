@@ -241,5 +241,34 @@
             "TikTok Gaming"
 
         ]
+    },
+
+    "SILENT HILL 2": {
+
+        "genre": "Psychological Horror",
+
+        "pillars": [
+
+            "Fear",
+
+            "Psychological Tension",
+
+            "Atmosphere",
+
+            "Story Discovery"
+
+        ],
+
+        "target_audiences": [
+
+            "Horror Fans",
+
+            "Story Driven Players",
+
+            "Survival Horror Veterans",
+
+            "Horror Stream Viewers"
+
+        ]
     }
 }

@@ -14,6 +14,7 @@ Pipeline/Scraper-main/data/
 Pipeline/Scraper-main/logs/
 
 # Local notes and editor files (not published)
+notes/
 CLAUDE.md
 PROJECT_STATUS.md
 *.txt

@@ -8,6 +8,30 @@ Enter a Steam App ID. The pipeline then:
 4. asks **Gemini** for genre-specific, audience-specific ads with separate **Discord / Reddit / Email** variants,
 5. distributes them to Discord, Reddit and email. **Dry-run by default; nothing is sent unless you pass `--live`.**
 6. A **Streamlit** dashboard shows sentiment, sales estimates and competitors, and can run the pipeline and trigger distribution.
+7. Optionally, **n8n** (Docker) runs it on a schedule, and **PostgreSQL** (Docker) keeps a copy of every run.
+
+## Project structure
+
+```
+docker-compose.yml          PostgreSQL + n8n
+docs/                       setup guides (Docker / n8n step by step)
+n8n/workflows/              importable n8n workflow (scheduled dry-run)
+Pipeline/
+  requirements.txt
+  Scraper-main/             Steam review scraper
+  Analyze/
+    run_pipeline.py         one command: App ID → reviews → insights → ads → distribution
+    generate_dataset.py     preprocessing (playtime, engagement, language)
+    pipeline/               full analysis (issues, health, audiences, campaigns, reports)
+    intelligence/           Ollama insights, segmentation, Gemini ad generation, scoring
+    reports/                executive / developer / segment / trend reports, PDF export
+    services/               Steam market data, publisher, logging, pipeline API for n8n
+    publishers/             Reddit (PRAW) and email (SMTP) senders
+    database/               PostgreSQL schema + mirror
+    dashboard/              Streamlit app
+    config/                 analysis config, game profiles, genre rule sets
+    test/                   pytest smoke tests
+```
 
 ## Requirements
 
@@ -84,6 +108,8 @@ Click counting is not active. Posts link to the Steam store URL with UTM tags, a
 
 Everything above works without Docker. With it, each run is also mirrored into PostgreSQL, and n8n can start dry-runs on a schedule.
 
+New to Docker or n8n? Follow the step-by-step guide: [docs/DOCKER_N8N_GUIDE.md](docs/DOCKER_N8N_GUIDE.md).
+
 1. Add the PostgreSQL / n8n block from `.env.example` to `.env`. Use real random values for `POSTGRES_PASSWORD`, `N8N_ENCRYPTION_KEY` and `PIPELINE_API_TOKEN`, and put the same password in `DATABASE_URL`.
 2. From the repo root:
 
@@ -118,12 +144,10 @@ Live sending stays manual: approve campaigns in the dashboard and publish there,
 
 ```bash
 cd Pipeline/Analyze
-python -m pytest test/test_smoke_gemini_creative.py test/test_smoke_distribution.py test/test_smoke_insights_market.py test/test_smoke_dashboard.py test/test_smoke_database.py test/test_smoke_pipeline_api.py
+python -m pytest test
 ```
 
 The Postgres round-trip test is skipped unless `TEST_DATABASE_URL` points at a disposable database. It writes rows and then removes them.
-
-The other files in `test/` are older ad-hoc scripts, not pytest tests.
 
 ## Sales data caveat
 
