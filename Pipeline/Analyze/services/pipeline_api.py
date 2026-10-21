@@ -149,7 +149,13 @@ def start_run(
 
         stderr=subprocess.STDOUT,
 
-        env={**os.environ, "PYTHONIOENCODING": "utf-8"}
+        # Unbuffered so GET /runs/{id} shows progress while it runs.
+
+        env={
+            **os.environ,
+            "PYTHONIOENCODING": "utf-8",
+            "PYTHONUNBUFFERED": "1"
+        }
     )
 
     jobs[job_id] = {
