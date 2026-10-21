@@ -123,6 +123,80 @@ def test_generate_rejects_incomplete_output(monkeypatch):
         generator.generate(CONTEXT)
 
 
+def test_request_has_timeout(monkeypatch):
+
+    generator = make_generator(monkeypatch, json.dumps(PACKAGE))
+
+    generator.generate(CONTEXT)
+
+    assert generator.client.interactions.kwargs["timeout"] == gcg.REQUEST_TIMEOUT_SECONDS
+
+
+def test_generate_retries_dropped_connection(monkeypatch, capsys):
+
+    generator = make_generator(monkeypatch, json.dumps(PACKAGE))
+
+    calls = []
+
+    def flaky(**kwargs):
+
+        calls.append(kwargs)
+
+        if len(calls) == 1:
+
+            raise ConnectionError("connection dropped")
+
+        return type("Interaction", (), {"output_text": json.dumps(PACKAGE)})()
+
+    generator.client.interactions.create = flaky
+
+    assert generator.generate(CONTEXT) == PACKAGE
+
+    assert len(calls) == 2
+
+    assert "retrying" in capsys.readouterr().out
+
+
+def test_generate_abandons_hung_call(monkeypatch):
+
+    import threading
+
+    generator = make_generator(monkeypatch, json.dumps(PACKAGE))
+
+    monkeypatch.setattr(gcg, "HARD_TIMEOUT_SECONDS", 0.2)
+
+    release = threading.Event()
+
+    def hang(**kwargs):
+
+        release.wait(5)
+
+        return type("Interaction", (), {"output_text": json.dumps(PACKAGE)})()
+
+    generator.client.interactions.create = hang
+
+    fresh = type("Client", (), {})()
+
+    fresh.interactions = FakeInteractions(json.dumps(PACKAGE))
+
+    monkeypatch.setattr(gcg.genai, "Client", lambda **kw: fresh)
+
+    assert generator.generate(CONTEXT) == PACKAGE
+
+    assert generator.client is fresh
+
+    release.set()
+
+
+def test_generate_gives_up_after_attempts(monkeypatch):
+
+    generator = make_generator(monkeypatch, "not json")
+
+    with pytest.raises(ValueError):
+
+        generator.generate(CONTEXT)
+
+
 def test_channel_creatives_mapping():
 
     assert gcg.channel_creatives(PACKAGE, "discord")["ad_copy"] == "Discord copy"

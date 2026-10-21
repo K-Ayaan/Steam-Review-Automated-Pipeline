@@ -1,10 +1,80 @@
 import json
 import os
+import threading
 
 from google import genai
 
 
 DEFAULT_GEMINI_MODEL = "gemini-3.8-flash"
+
+# Gemini can take a long time under load (up to ~30 min), but a
+# connection Google drops mid-request would otherwise hang the
+# pipeline forever. interactions.create ignores the client's
+# http_options timeout, so it is passed per request.
+
+REQUEST_TIMEOUT_SECONDS = int(
+
+    os.getenv(
+
+        "GEMINI_TIMEOUT_SECONDS",
+
+        "1800"
+    )
+)
+
+# The SDK can still block past its own timeout (half-closed socket,
+# long server-requested retry delays), so each attempt also gets a
+# hard wall-clock deadline.
+
+HARD_TIMEOUT_SECONDS = REQUEST_TIMEOUT_SECONDS + 60
+
+ATTEMPTS = 3
+
+
+def call_with_deadline(
+
+    fn,
+
+    seconds
+):
+
+    result = {}
+
+    def run():
+
+        try:
+
+            result["value"] = fn()
+
+        except BaseException as e:
+
+            result["error"] = e
+
+    # Daemon thread: an attempt stuck inside the SDK
+    # cannot keep the process alive.
+
+    worker = threading.Thread(
+
+        target=run,
+
+        daemon=True
+    )
+
+    worker.start()
+
+    worker.join(seconds)
+
+    if worker.is_alive():
+
+        raise TimeoutError(
+            f"no response from Gemini after {seconds}s"
+        )
+
+    if "error" in result:
+
+        raise result["error"]
+
+    return result["value"]
 
 CREATIVE_SCHEMA = {
 
@@ -120,6 +190,8 @@ class GeminiCreativeGenerator:
                 "GEMINI_API_KEY is not set"
             )
 
+        self.api_key = api_key
+
         self.client = genai.Client(
 
             api_key=api_key
@@ -225,6 +297,49 @@ Rules:
         context
     ):
 
+        # Retry timeouts, dropped connections and malformed output.
+
+        for attempt in range(1, ATTEMPTS + 1):
+
+            try:
+
+                return call_with_deadline(
+
+                    lambda: self.generate_once(
+                        context
+                    ),
+
+                    HARD_TIMEOUT_SECONDS
+                )
+
+            except Exception as e:
+
+                if attempt == ATTEMPTS:
+
+                    raise
+
+                print(
+                    f"[Gemini] attempt {attempt} failed "
+                    f"({type(e).__name__}), retrying"
+                )
+
+                if isinstance(e, TimeoutError):
+
+                    # The stuck attempt may hold a dead pooled
+                    # connection: retry on a fresh client.
+
+                    self.client = genai.Client(
+
+                        api_key=self.api_key
+                    )
+
+    def generate_once(
+
+        self,
+
+        context
+    ):
+
         interaction = self.client.interactions.create(
 
             model=self.model,
@@ -240,7 +355,9 @@ Rules:
                 "mime_type": "application/json",
 
                 "schema": CREATIVE_SCHEMA
-            }
+            },
+
+            timeout=REQUEST_TIMEOUT_SECONDS
         )
 
         text = (

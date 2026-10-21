@@ -55,6 +55,7 @@ Fill in the values in the repo-root `.env`. It ships with blank placeholders; se
 |---|---|---|
 | `GEMINI_API_KEY` | ad generation | |
 | `GEMINI_MODEL` | ad generation | default `gemini-3.8-flash` |
+| `GEMINI_TIMEOUT_SECONDS` | ad generation | per-attempt limit, default `1800` (30 min). A stalled request is abandoned and retried on a fresh connection, up to 3 attempts |
 | `OLLAMA_MODEL` | review analysis | default `qwen2.5:7b`; set it to the tag shown by `ollama list` (e.g. `qwen2.5:7b-instruct`) |
 | `DISCORD_WEBHOOK_URL` | live Discord | falls back to `config/discord_config.py` |
 | `REDDIT_CLIENT_ID`, `REDDIT_CLIENT_SECRET`, `REDDIT_USERNAME`, `REDDIT_PASSWORD`, `REDDIT_SUBREDDIT` | live Reddit | create a "script" app at https://www.reddit.com/prefs/apps |
@@ -130,7 +131,7 @@ python -m uvicorn services.pipeline_api:app --host 127.0.0.1 --port 8001
 ```
 
 - `POST /runs` with `{"app_id": 3297310, "max_reviews": 200}` returns a `job_id`, and `GET /runs/{job_id}` returns its status and the last log lines. Logs go to `outputs/api_runs/`.
-- Import the sample workflow (daily at 06:00, inactive until you switch it on):
+- Import the sample workflow (every 2 weeks, Monday 06:00, inactive until you switch it on):
 
   ```bash
   docker compose exec -u node n8n n8n import:workflow --input=/workflows/scheduled_dry_run.json
