@@ -1,6 +1,6 @@
 {
   "id": "steamDryRunDaily",
-  "name": "Steam pipeline - daily dry-run",
+  "name": "Steam pipeline - dry-run every 2 weeks",
   "active": false,
   "nodes": [
     {
@@ -8,15 +8,19 @@
         "rule": {
           "interval": [
             {
-              "field": "days",
-              "daysInterval": 1,
-              "triggerAtHour": 6
+              "field": "weeks",
+              "weeksInterval": 2,
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 6,
+              "triggerAtMinute": 0
             }
           ]
         }
       },
       "id": "5b0f8a0e-3c55-4c1e-9d8e-1a2b3c4d5e01",
-      "name": "Every day at 06:00",
+      "name": "Every 2 weeks (Mon 06:00)",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
@@ -64,7 +68,7 @@
     }
   ],
   "connections": {
-    "Every day at 06:00": {
+    "Run now": {
       "main": [
         [
           {
@@ -75,7 +79,7 @@
         ]
       ]
     },
-    "Run now": {
+    "Every 2 weeks (Mon 06:00)": {
       "main": [
         [
           {

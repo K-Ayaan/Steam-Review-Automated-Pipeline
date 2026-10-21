@@ -9,7 +9,7 @@ This guide explains how the scheduled automation works and how to set it up your
 ```
  n8n (Docker)                Pipeline API (your PC)          Pipeline (your PC)
 ┌──────────────────┐  HTTP  ┌──────────────────────┐ starts ┌──────────────────────────┐
-│ Every day 06:00  │ ─────▶ │ POST /runs            │ ─────▶ │ run_pipeline.py (dry-run)│
+│ Every 2 weeks    │ ─────▶ │ POST /runs            │ ─────▶ │ run_pipeline.py (dry-run)│
 │  or "Run now"    │        │ checks X-API-Key      │        │ scrape → Ollama → Gemini │
 └──────────────────┘        └──────────────────────┘        └────────────┬─────────────┘
                                                                          │ copies the run into
@@ -26,12 +26,12 @@ This guide explains how the scheduled automation works and how to set it up your
 
 | Step | Automated? |
 |---|---|
-| Scrape → analyse → generate ads → dry-run preview, every day at 06:00 | **Yes**, once the workflow is active and the pieces below are running |
+| Scrape → analyse → generate ads → dry-run preview, every 2 weeks (Monday 06:00) | **Yes**, once the workflow is active and the pieces below are running |
 | Copying results into PostgreSQL | **Yes**, every run |
 | Approving campaigns | **No**, on purpose. You approve in the dashboard. |
 | Actually posting to Discord / Reddit / email | **No**, on purpose. The API can only do dry-runs. You publish from the dashboard (Live mode) or with `run_pipeline.py --live`. |
 
-For the 06:00 run to happen, all of these must be up:
+For the scheduled Monday 06:00 run to happen, all of these must be up:
 1. Your PC is on and **awake**. Sleep pauses everything, including Docker, n8n and a run in progress. The first test run (2026-10-21) started at 04:41, the PC slept at 04:49, and the run only finished at 11:58 after the PC woke. See section 7b.
 2. Docker Desktop is running. The containers restart automatically (`restart: unless-stopped`).
 3. Ollama is running.
@@ -95,7 +95,7 @@ docker compose exec postgres psql -U steam -d steam_ads -c "\dt"
 
 1. Go to http://localhost:5678
 2. The first visit asks you to create an **owner account** (email + password). This account is local to your n8n and isn't sent anywhere. Pick any email and a password you'll remember.
-3. You'll see the workflow **"Steam pipeline - daily dry-run"**.
+3. You'll see the workflow **"Steam pipeline - dry-run every 2 weeks"**.
 
 ---
 
@@ -122,7 +122,7 @@ The API reads `PIPELINE_API_TOKEN` from `.env` itself. Without that header it an
 
 It has three nodes:
 
-- **Every day at 06:00** (Schedule Trigger) starts it automatically.
+- **Every 2 weeks (Mon 06:00)** (Schedule Trigger) starts it automatically. To change it, open the node and set *Weeks Between Triggers*, the weekday and the hour.
 - **Run now** (Manual Trigger) runs it when you click *Execute workflow* in the editor.
 - **Start dry-run** (HTTP Request) sends `POST {PIPELINE_API_URL}/runs` with header `X-API-Key: {PIPELINE_API_TOKEN}` and body `{"app_id": 3297310, "max_reviews": 200}`.
 
@@ -160,7 +160,7 @@ In n8n 2.x an "active" workflow is a **published** one. Changes made from the CL
 
 ## 7. Make the API start by itself (optional)
 
-Without this, the 06:00 run fails whenever you haven't started the API. Windows Task Scheduler can start it when you log in:
+Without this, the scheduled run fails whenever you haven't started the API. Windows Task Scheduler can start it when you log in:
 
 1. Open **Task Scheduler** → **Create Task…**
 2. **General**: name `Steam Pipeline API`, select *Run only when user is logged on*.
@@ -184,8 +184,8 @@ Pick one:
   powercfg /change standby-timeout-ac 0
   ```
 
-- **Wake up for it**: in Task Scheduler create a task that triggers daily at **05:55**, tick *Conditions → Wake the computer to run this task*, with action Program `cmd.exe`, Arguments `/c exit`. Also allow wake timers: Control Panel → Power Options → Change plan settings → Advanced → Sleep → *Allow wake timers* → **Enable**. The PC can go back to sleep after the idle timeout, so combine this with a longer sleep timeout (a run takes ~5-10 minutes).
-- **Move the schedule** to a time you're usually at the PC: open *Every day at 06:00* in n8n, change the hour, then save and publish.
+- **Wake up for it**: in Task Scheduler create a task that triggers every 2 weeks on Monday at **05:55**, tick *Conditions → Wake the computer to run this task*, with action Program `cmd.exe`, Arguments `/c exit`. Also allow wake timers: Control Panel → Power Options → Change plan settings → Advanced → Sleep → *Allow wake timers* → **Enable**. The PC can go back to sleep after the idle timeout, so combine this with a longer sleep timeout (a run takes ~5-10 minutes).
+- **Move the schedule** to a time you're usually at the PC: open *Every 2 weeks (Mon 06:00)* in n8n, change the day or hour, then save and publish.
 
 To see when the PC slept and woke:
 
